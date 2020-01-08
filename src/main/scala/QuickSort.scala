@@ -14,7 +14,7 @@ object QuickSort {
   /* 一轮对数组中的元素进行调整后返回comparedNum的位置
    * 我们通过调整数组中元素的位置，找到一个合适的位置
    * 当我们将comparedNum放在这个位置的时候，确保数组在其左边的元素都小于它，数据在其右边的元素都大于它 */
-  private def sort(nums: Array[Int], start: Int, end: Int): Int = {
+  def sort(nums: Array[Int], start: Int, end: Int): Int = {
     var i = start + 1
     var j = end
     val comparedNum = nums(start)
@@ -45,7 +45,7 @@ object QuickSort {
       }
     }
 
-    i
+    i - 1
   }
 
   // 快排算法的非递归实现
@@ -61,9 +61,9 @@ object QuickSort {
       if (start < end) {
         val offset = sort(nums, start, end)
         records.push(start)
-        records.push(offset - 1)
-
         records.push(offset)
+
+        records.push(offset + 1)
         records.push(end)
       }
     }
@@ -76,11 +76,11 @@ object QuickSort {
     val offset = sort(nums, start, end)
 
     if (offset > start + 1) { // 此时代表左边还没有排好序
-      quickSort(nums, start, offset - 1)
+      quickSort(nums, start, offset)
     }
 
     if (offset < end) { // 此时代表右边还没有排好序
-      quickSort(nums, offset, end)
+      quickSort(nums, offset + 1, end)
     }
 
     nums
