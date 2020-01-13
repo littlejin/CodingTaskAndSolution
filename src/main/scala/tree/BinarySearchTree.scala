@@ -1,3 +1,5 @@
+package tree
+
 class BinarySearchTree(val root: Node[Int])
 
 object BinarySearchTree {
