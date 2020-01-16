@@ -1,6 +1,11 @@
 package tree
 
-class BinarySearchTree(val root: Node[Int])
+// 给定一个数组，动态创建二叉查找树
+class BinarySearchTree(val root: Node[Int]) {
+  override def toString: String = {
+    root.toString
+  }
+}
 
 object BinarySearchTree {
   private def addNumToTree(tree: BinarySearchTree, num: Int): Unit = {
@@ -29,7 +34,6 @@ object BinarySearchTree {
     }
   }
 
-  // 给定一个数组，动态创建二叉查找树
   def get(nums: Array[Int]): BinarySearchTree = {
     val root = new Node(nums.head)
     val tree = new BinarySearchTree(root)
@@ -38,5 +42,4 @@ object BinarySearchTree {
     }
     tree
   }
-
 }
