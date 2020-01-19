@@ -8,8 +8,8 @@ object AUC {
     val posBldr, negBldr = Array.newBuilder[Double]
 
     // 划分正负样本
-    data.foreach { case (label, pctr) =>
-      if (label > 0) posBldr += pctr else negBldr += pctr
+    data.foreach { case (label, pCtr) =>
+      if (label > 0) posBldr += pCtr else negBldr += pCtr
     }
 
     // 正负样本根据pctr从小到大排序, 减少遍历次数
