@@ -18,7 +18,7 @@ object AUC {
 
     var count = 0D // 记录根据pctr判断, 有多少正样本排列在负样本前面
     var countByItr = 0D
-    var idx = 0
+    var idx = 0 // 遍历负样本序列的指针
 
     posPctr.foreach { pctr =>
       Breaks.breakable {

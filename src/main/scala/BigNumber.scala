@@ -1,30 +1,24 @@
 object BigNumber {
   // 处理结果中的十进制进位问题
-  private def fold(result: Array[Int]): Array[Int] = {
-    var idx = result.length - 1
-    while (idx > 0) {
-      val num = result(idx)
-      result(idx) %= 10
-      result(idx - 1) += (num / 10)
-      idx -= 1
-    }
-
-    result
+  private def fold(result: Array[Int], idx: Int): Unit = {
+    val num = result(idx)
+    result(idx) %= 10
+    result(idx - 1) += (num / 10)
   }
 
   // 大数相乘
   def multiple(numA: Array[Int], numB: Array[Int]): Array[Int] = {
     val result = new Array[Int](numA.length + numB.length)
 
-    // 先不考虑进位，两个数字每一位分别相乘
-    numA.indices.foreach { i =>
-      numB.indices.foreach { j =>
-        val idx = i + j + 1  // 赋值的时候先往后移动1位，预留做进位使用
+    numA.indices.reverse.foreach { i =>
+      numB.indices.reverse.foreach { j =>
+        val idx = i + j + 1 // 预留一位用于十进制进位
         result(idx) += numA(i) * numB(j)
+        fold(result, idx)
       }
     }
 
-    fold(result)
+    result
   }
 
   // 大数相加
@@ -42,13 +36,13 @@ object BigNumber {
       val a = if (idxA >= 0) numA(idxA) else 0
       val b = if (idxB >= 0) numB(idxB) else 0
       result(idx) += (a + b)
+      fold(result, idx)
 
       idx -= 1
       idxA -= 1
       idxB -= 1
     }
 
-    fold(result)
+    result
   }
-
 }
